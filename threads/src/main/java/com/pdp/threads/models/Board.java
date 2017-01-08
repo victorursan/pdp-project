@@ -4,12 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -57,10 +55,9 @@ public final class Board implements Comparable {
     }
 
     public boolean isSolution() {
-       return solution;
+        return solution;
     }
 
-    @NotNull
     private Integer getEmptyPiece() {
         return pieces.indexOf(16);
     }

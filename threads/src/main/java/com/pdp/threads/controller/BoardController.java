@@ -2,7 +2,6 @@ package com.pdp.threads.controller;
 
 import com.pdp.threads.models.Board;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;

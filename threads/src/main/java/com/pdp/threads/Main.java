@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        final BoardController controller = new BoardController(Arrays.asList(1, 2, 3, 4, 5, 6, 16, 8, 9, 10, 11, 12, 13, 14, 15, 7));
+        final BoardController controller = new BoardController(Arrays.asList(13, 12, 7, 11, 14, 5, 3, 15, 2, 6, 9, 1, 8, 4, 10, 16));
         System.out.println(StringUtils.join(controller.solve(), "\n\n\n"));
     }
 }
