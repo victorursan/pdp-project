@@ -1,11 +1,10 @@
 package com.pdp.threads.controller;
 
-import com.google.common.collect.Lists;
 import com.pdp.threads.models.Board;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Stream;
@@ -21,20 +20,21 @@ public final class BoardController {
     private final Set<Board> visited;
 
     public BoardController(final List<Integer> initialList) {
-        executor = Executors.newFixedThreadPool(8);
+        executor = Executors.newFixedThreadPool(16);
         initialBoard = new Board(initialList);
-        visited = new TreeSet<>(Collections.singleton(initialBoard));
+        visited = new TreeSet<>();
     }
 
     public List<Board> solve() {
         final Optional<Board> boardOptional = getSolutions(initialBoard);
+        executor.shutdown();
         if (boardOptional.isPresent())
             return reconstructBoardPath(boardOptional.get());
         return Collections.emptyList();
     }
 
     private Optional<Board> getSolutions(final Board board) {
-        List<Board> moves = board.move();
+        List<Board> moves = Collections.singletonList(board);
         while (moves.stream().noneMatch(Board::isSolution) && !moves.isEmpty()) {
             visited.addAll(moves);
 

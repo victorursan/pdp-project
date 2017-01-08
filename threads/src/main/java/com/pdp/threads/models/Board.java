@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -21,15 +22,18 @@ import static java.util.stream.Stream.concat;
 public final class Board implements Comparable {
     final private List<Integer> pieces;
     final private Board parent;
+    final private boolean solution;
 
     public Board(final List<Integer> pieces) {
         this.pieces = pieces;
         this.parent = null;
+        this.solution = checkSolution();
     }
 
     private Board(final List<Integer> pieces, final Board parent) {
         this.pieces = pieces;
         this.parent = parent;
+        this.solution = checkSolution();
     }
 
     public Optional<Board> getParent() {
@@ -40,17 +44,20 @@ public final class Board implements Comparable {
     public List<Board> move() {
         final Integer emptyPosition = getEmptyPiece();
         return concat(concat(concat(concat(Stream.empty(),
-                isValidInteger(emptyPosition - 1, integer -> integer >= (emptyPosition / 4) * 4)),
-                isValidInteger(emptyPosition + 1, integer -> integer < ((emptyPosition / 4) + 1) * 4)),
+                isValidInteger(emptyPosition - 1, integer -> (integer + 1) % 4 != 0)),
+                isValidInteger(emptyPosition + 1, integer -> (integer - 1) % 4 != 3)),
                 isValidInteger(emptyPosition - 4, integer -> integer >= 0)),
                 isValidInteger(emptyPosition + 4, integer -> integer < 16))
-                .map(newPos -> swap(emptyPosition, newPos))
-                .map(elements -> new Board(elements, this))
+                .map(newPos -> new Board(swap(emptyPosition, newPos), this))
                 .collect(toList());
     }
 
-    public boolean isSolution() {
+    private boolean checkSolution() {
         return Ordering.natural().isOrdered(pieces);
+    }
+
+    public boolean isSolution() {
+       return solution;
     }
 
     @NotNull
