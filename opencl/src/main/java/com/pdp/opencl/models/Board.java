@@ -42,6 +42,9 @@ public final class Board implements Comparable {
 
     private Board move(int direction) {
         // 1 is up, 2 is right, 3 is down, 4 is left (clockwise)
+        if (pieces.length == 0) {
+            return new Board(new int[]{});
+        }
         final Integer emptyPosition = getEmptyPiece();
         int sa = pieces.length;
         int[] dstArray = new int[sa];
@@ -93,7 +96,7 @@ public final class Board implements Comparable {
         // Release kernel, program, and memory objects
         OCLclear(memObjects, kernel, program, commandQueue, context);
         if(dstArray[0] >= 0) {
-            return new Board(dstArray);
+            return new Board(dstArray, this);
         } else {
             return new Board(new int[]{});
         }
@@ -211,5 +214,9 @@ public final class Board implements Comparable {
             return 0;
         }
         return 1;
+    }
+
+    public boolean isSolution() {
+        return solution;
     }
 }
