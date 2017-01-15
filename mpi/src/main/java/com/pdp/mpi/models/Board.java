@@ -96,12 +96,12 @@ public final class Board implements Comparable {
 
     @Override
     public String toString() {
-        List<String> replacedPieces = pieces.stream().map(e -> {
+        final List<String> replacedPieces = pieces.stream().map(e -> {
             if (e == 16) return "x";
             return e.toString();
         }).collect(toList());
         return StringUtils.join(Lists.partition(replacedPieces, 4).stream()
-                .map(elements -> StringUtils.join(elements, "|  "))
+                .map(elements -> StringUtils.join(elements, "| "))
                 .collect(toList()), "\n--------------\n");
     }
 
@@ -111,7 +111,7 @@ public final class Board implements Comparable {
 
         if (o == null || getClass() != o.getClass()) return -1;
 
-        Board board = (Board) o;
+        final Board board = (Board) o;
         if (board.pieces.equals(this.pieces)) {
             return 0;
         }

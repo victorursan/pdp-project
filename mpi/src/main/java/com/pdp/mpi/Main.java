@@ -1,11 +1,13 @@
 package com.pdp.mpi;
 
 import com.pdp.mpi.controller.BoardController;
+import com.pdp.mpi.models.Board;
 import mpi.MPI;
 import mpi.MPIException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by victor on 1/8/17.
@@ -16,7 +18,13 @@ public class Main {
             MPI.Init(args);
             if (MPI.COMM_WORLD.getRank() == 0) {
                 final BoardController controller = new BoardController(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 11, 12, 13, 14, 15, 10));
-                System.out.println(StringUtils.join(controller.solve(), "\n\n\n"));
+
+                final long before = System.currentTimeMillis();
+                final List<Board> solution = controller.solve();
+                final long after = System.currentTimeMillis();
+
+                System.out.println(StringUtils.join(solution, "\n\n\n"));
+                System.out.println("Delta time: " + (after - before));
             } else {
                 BoardController.consumeMPI();
             }
