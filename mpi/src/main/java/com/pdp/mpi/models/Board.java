@@ -101,7 +101,7 @@ public final class Board implements Comparable {
             return e.toString();
         }).collect(toList());
         return StringUtils.join(Lists.partition(replacedPieces, 4).stream()
-                .map(elements -> StringUtils.join(elements, "|\t"))
+                .map(elements -> StringUtils.join(elements, "|  "))
                 .collect(toList()), "\n--------------\n");
     }
 

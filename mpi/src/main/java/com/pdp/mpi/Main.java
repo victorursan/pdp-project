@@ -15,7 +15,7 @@ public class Main {
         try {
             MPI.Init(args);
             if (MPI.COMM_WORLD.getRank() == 0) {
-                final BoardController controller = new BoardController(Arrays.asList(11, 6, 16, 8, 15, 4, 12, 7, 5, 9, 3, 2, 1, 14, 10, 13));
+                final BoardController controller = new BoardController(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 11, 12, 13, 14, 15, 10));
                 System.out.println(StringUtils.join(controller.solve(), "\n\n\n"));
             } else {
                 BoardController.consumeMPI();
