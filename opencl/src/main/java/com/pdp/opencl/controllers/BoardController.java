@@ -23,8 +23,6 @@ public class BoardController {
         List<Board> moves = Collections.singletonList(board);
         while (moves.stream().noneMatch(Board::isSolution) && !moves.isEmpty()) {
             visited.addAll(moves);
-//            moves.forEach(Board::toStr);
-//            System.out.println("\n\n");
             moves = moves.stream().flatMap(b -> b.moveList().stream())
                     .filter(b -> !visited.contains(b))
                     .collect(Collectors.toList());

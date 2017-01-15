@@ -4,7 +4,6 @@ import co.pdp.opencl.controller.BoardController;
 import co.pdp.opencl.models.Board;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
